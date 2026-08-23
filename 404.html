@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>منصة المسلم الصغير 🌟 للأطفال</title>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3YS9VF5TH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-X3YS9VF5TH');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-app">
+    
+    <!-- Top Navigation Bar -->
+    <header id="top-bar">
+      <div class="top-left">
+        <button id="btn-sound" class="icon-btn" title="كتم/تشغيل الصوت">
+          <span class="icon">🔊</span>
+        </button>
+        <button id="btn-profiles-toggle" class="icon-btn" title="تبديل وإدارة حسابات الأبطال">
+          <span class="icon">🪪</span>
+        </button>
+      </div>
+
+      <div class="top-center">
+        <div class="hasanat-counter" id="hasanat-box" title="عداد الحسنات الموحد">
+          <span class="star-icon">⭐</span>
+          <span id="hasanat-val">0</span>
+          <span class="hasanat-label">حسنة</span>
+        </div>
+      </div>
+
+      <div class="top-right">
+        <div class="player-mini-badge" id="player-profile-badge" title="ملف البطل وجواز الإنجازات">
+          <span class="player-avatar-icon" id="mini-avatar">👦</span>
+          <span class="player-name-text" id="mini-name">زائر</span>
+        </div>
+        <button id="btn-hub-nav" class="icon-btn" title="بوابة الألعاب الرئيسية">
+          <span class="icon">🏠</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main id="main-view">
+      
+      <!-- SCREEN 1: WELCOME & CHARACTER SELECTION -->
+      <section id="screen-welcome" class="screen-panel active">
+        <div class="welcome-card">
+          <div class="hero-logo-container">
+            <div class="kaaba-icon-glow">🌟</div>
+            <h1 class="game-title">المسلم الصغير</h1>
+            <p class="game-subtitle">عالم الألعاب التعليمية والترفيهية للطفل المسلم</p>
+          </div>
+
+          <div class="welcome-form" id="welcome-new-user-form">
+            <h3 class="form-title" style="font-size:1.05rem; font-weight:800; color:#334155; margin-bottom:8px;">اختر بطلك وأدخل اسمك:</h3>
+            
+            <div class="character-picker">
+              <label class="avatar-option selected" data-avatar="boy" id="avatar-opt-boy">
+                <input type="radio" name="avatar" value="boy" checked>
+                <div class="avatar-card">
+                  <div class="avatar-emoji">👦</div>
+                  <span class="avatar-label">حمزة (بطل)</span>
+                </div>
+              </label>
+
+              <label class="avatar-option" data-avatar="girl" id="avatar-opt-girl">
+                <input type="radio" name="avatar" value="girl">
+                <div class="avatar-card">
+                  <div class="avatar-emoji">👧</div>
+                  <span class="avatar-label">خديجة (بطلة)</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="name-input-box" style="margin: 12px 0 16px 0;">
+              <input type="text" id="input-child-name" placeholder="اكتب اسمك هنا يا بطل..." maxlength="20" autocomplete="off">
+            </div>
+
+            <button id="btn-start-journey" class="btn-primary-big pulse-anim">
+              <span id="start-btn-text">ابدأ المغامرة 🚀</span>
+            </button>
+          </div>
+
+          <!-- Returning User Box -->
+          <div class="welcome-returning-box" id="welcome-returning-box" style="display:none;">
+            <div class="return-hero-badge">
+              <div class="return-hero-avatar" id="welcome-return-avatar">👦</div>
+              <div>
+                <h3 id="welcome-return-name">زائر</h3>
+                <p>رصيدك الحالي: <strong id="welcome-return-hasanat">0</strong> حسنة ⭐</p>
+              </div>
+            </div>
+            
+            <button id="btn-continue-journey" class="btn-primary-big pulse-anim">
+              <span>متابعة الرحلة 🕋 ➔</span>
+            </button>
+
+            <button id="btn-switch-hero-welcome" class="btn-secondary" style="margin-top: 8px;">
+              <span>تغيير الاسم أو البطل 👤</span>
+            </button>
+          </div>
+
+          <div class="welcome-footer-badges">
+            <span class="badge-item">🕋 رحلة إلى بيت الله</span>
+            <span class="badge-item">🎴 آية ومعنى</span>
+            <span class="badge-item">⭐ اجمع الحسنات</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: GAME HUB / PORTAL -->
+      <section id="screen-hub" class="screen-panel">
+        <div class="hub-header">
+          <h2>بوابة ألعاب المسلم الصغير 🏰</h2>
+          <p>اختر لعبتك المفضلة واجمع الحسنات والأوسمة المباركة!</p>
+        </div>
+
+        <div class="game-hub-grid">
+          <!-- Game 1: Hajj Journey -->
+          <div class="game-hub-card hajj-game-theme" id="card-game-hajj">
+            <div class="hub-card-icon">🕋</div>
+            <div class="hub-card-content">
+              <h3 class="hub-game-title">رحلة إلى بيت الله (مناسك الحج)</h3>
+              <p class="hub-game-desc">عِش مغامرة الحج بمراحله الـ 9 التفاعلية من الإحرام وطواف الكعبة حتى طواف الوداع!</p>
+              <div class="hub-game-meta">
+                <span>⭐ 500 حسنة</span>
+                <span>📜 وسام وشهادة الحاج</span>
+              </div>
+            </div>
+            <button class="btn-primary-big hub-play-btn">
+              <span>العب الآن ➔</span>
+            </button>
+          </div>
+
+          <!-- Game 2: Memory Match (Ayah & Meaning) -->
+          <div class="game-hub-card memory-game-theme" id="card-game-memory">
+            <div class="hub-card-icon">🎴</div>
+            <div class="hub-card-content">
+              <h3 class="hub-game-title">آية ومعنى (لعبة الذاكرة)</h3>
+              <p class="hub-game-desc">طابق بين الكلمات القرآنية ومعانيها من قصار السور واجمع وسام وشهادة حافظ كلمات القرآن!</p>
+              <div class="hub-game-meta">
+                <span>⭐ 310 حسنة</span>
+                <span>📜 شهادة حافظ القرآن</span>
+              </div>
+            </div>
+            <button class="btn-primary-big hub-play-btn">
+              <span>العب الآن ➔</span>
+            </button>
+          </div>
+
+          <!-- Game 3: Miracles of the Prophets -->
+          <div class="game-hub-card story-game-theme" id="card-game-story">
+            <div class="hub-card-icon">✨</div>
+            <div class="hub-card-content">
+              <h3 class="hub-game-title">معجزات وقصص الأنبياء</h3>
+              <p class="hub-game-desc">اكشف أنوار ومعجزات الأنبياء واكتشف قصة النبي من خلال الرموز والعبر القرآنية المنيرة!</p>
+              <div class="hub-game-meta">
+                <span>⭐ 360 حسنة</span>
+                <span>📜 شهادة راوي المعجزات</span>
+              </div>
+            </div>
+            <button class="btn-primary-big hub-play-btn">
+              <span>العب الآن ➔</span>
+            </button>
+          </div>
+
+          <!-- Game 4: Conquest Map & Companions Heroes -->
+          <div class="game-hub-card conquest-game-theme" id="card-game-conquest">
+            <div class="hub-card-icon">🗺️</div>
+            <div class="hub-card-content">
+              <h3 class="hub-game-title">خريطة الفتوحات وسفراء الإسلام</h3>
+              <p class="hub-game-desc">استكشف خريطة التاريخ الإسلامي، وجّه أبطال الصحابة وسفراء النبي ﷺ إلى مدنهم وانشر رايات النور!</p>
+              <div class="hub-game-meta">
+                <span>⭐ 400 حسنة</span>
+                <span>📜 وسام وشهادة الفاتح</span>
+              </div>
+            </div>
+            <button class="btn-primary-big hub-play-btn">
+              <span>العب الآن ➔</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: JOURNEY MAP (FOR HAJJ GAME) -->
+      <section id="screen-map" class="screen-panel">
+        <div class="map-header">
+          <h2>خريطة رحلة الإيمان 🕋</h2>
+          <p>أكمل كل محطة للحصول على الختم في جواز سفرك!</p>
+        </div>
+
+        <div class="map-path-container" id="map-levels-list">
+          <!-- Levels dynamically injected via JS -->
+        </div>
+
+        <div class="map-footer-actions">
+          <button id="btn-view-certificate" class="btn-secondary" style="display:none; margin-bottom:8px;">
+            <span>📜 عرض شهادة الحاج الصغير</span>
+          </button>
+          <button id="btn-map-to-hub" class="btn-secondary">
+            <span>العودة لبوابة الألعاب 🏰</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: HAJJ GAME STAGE CONTAINER -->
+      <section id="screen-stage" class="screen-panel">
+        <div class="stage-wrapper" id="stage-dynamic-content">
+          <!-- Dynamic stage view rendered by JS -->
+        </div>
+      </section>
+
+      <!-- SCREEN: MEMORY GAME LEVEL SELECT -->
+      <section id="screen-memory-levels" class="screen-panel">
+        <div class="map-header">
+          <h2>🎴 آية ومعنى - اختر المستوى</h2>
+          <p>أكمل المستويات الثلاثة للحصول على وسام وشهادة حافظ كلمات القرآن!</p>
+        </div>
+
+        <div class="memory-levels-grid" id="memory-levels-list">
+          <!-- Levels dynamically rendered with completion and stars via JS -->
+        </div>
+
+        <div class="memory-levels-footer-actions" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+          <button id="btn-view-memory-certificate" class="btn-primary-big" style="display:none; background:linear-gradient(180deg, #8b5cf6, #6d28d9); border-bottom-color:#4c1d95;">
+            <span>📜 استلام / عرض شهادة حافظ كلمات القرآن</span>
+          </button>
+          <button id="btn-memory-levels-to-hub" class="btn-secondary">
+            <span>العودة لبوابة الألعاب 🏰</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: MEMORY GAME ARENA -->
+      <section id="screen-memory-game" class="screen-panel">
+        <div class="memory-game-header">
+          <div class="mem-stat-badge">
+            <span>🎯 المحاولات:</span>
+            <strong id="mem-moves-count">0</strong>
+          </div>
+
+          <!-- Timer Container -->
+          <div class="sand-timer-box" id="sand-timer-widget" title="المؤقت">
+            <div class="sand-hourglass">
+              <div class="sand-top" id="sand-top-sand"></div>
+              <div class="sand-stream" id="sand-middle-stream"></div>
+              <div class="sand-bottom" id="sand-bottom-sand"></div>
+            </div>
+            <span id="mem-time-left">60s</span>
+          </div>
+
+          <div class="mem-stat-badge">
+            <span>🌟 الأزواج:</span>
+            <strong id="mem-pairs-count">0 / 4</strong>
+          </div>
+        </div>
+
+        <!-- Matched Word Audio Announcement -->
+        <div id="mem-match-banner" class="match-announcement-box" style="display:none;">
+          <span id="mem-match-text">✨ رائع! الكوثر: نهر في الجنة</span>
+        </div>
+
+        <!-- Cards Board Grid -->
+        <div class="memory-cards-grid" id="memory-cards-board">
+          <!-- Dynamic cards injected via JS -->
+        </div>
+
+        <div class="memory-bottom-actions">
+          <button id="btn-mem-restart" class="btn-secondary" style="width:auto; padding:8px 16px;">
+            <span>🔄 إعادة اللعب</span>
+          </button>
+          <button id="btn-mem-back-levels" class="btn-secondary" style="width:auto; padding:8px 16px;">
+            <span>تغيير المستوى 🎴</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: MIRACLES STORY LEVEL SELECT -->
+      <section id="screen-story-levels" class="screen-panel">
+        <div class="map-header">
+          <h2>✨ معجزات وقصص الأنبياء - اختر المستوى</h2>
+          <p>اكشف أنوار ومعجزات الأنبياء واكتشف قصصهم المباركة لتحصل على وسام وشهادة راوي المعجزات!</p>
+        </div>
+
+        <div class="memory-levels-grid" id="story-levels-list">
+          <!-- Story levels dynamically injected via JS -->
+        </div>
+
+        <div class="memory-levels-footer-actions" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+          <button id="btn-view-story-certificate" class="btn-primary-big" style="display:none; background:linear-gradient(180deg, #d97706, #b45309); border-bottom-color:#78350f;">
+            <span>📜 استلام / عرض شهادة راوي معجزات الأنبياء</span>
+          </button>
+          <button id="btn-story-levels-to-hub" class="btn-secondary">
+            <span>العودة لبوابة الألعاب 🏰</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: MIRACLES STORY ARENA -->
+      <section id="screen-story-game" class="screen-panel">
+        <div class="stage-header-bar">
+          <div class="stage-title"><span id="story-level-title-icon">✨</span> <span id="story-level-title-text">المستوى 1: المستكشف الصغير</span></div>
+          <button class="btn-secondary" id="btn-story-back-levels" style="width:auto; padding:6px 12px; font-size:0.9rem;">المستويات ✨</button>
+        </div>
+
+        <div class="story-progress-indicator">
+          <span>القصة (<span id="story-current-num">1</span> من <span id="story-total-num">4</span>)</span>
+          <div class="story-dots-row" id="story-dots-container"></div>
+        </div>
+
+        <!-- Light & Miracles Glowing Tray -->
+        <div class="wooden-tray-container" id="wooden-tray-box">
+          <div class="wooden-tray-rim">
+            <div class="wooden-tray-felt" id="dice-felt-area">
+              <div class="dice-roll-container" id="active-dice-grid">
+                <!-- Glowing Miracles Cards injected via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reveal Miracles Button -->
+        <button id="btn-roll-story-dice" class="btn-primary-big story-roll-btn pulse-anim">
+          <span>✨ اكشف أنوار المعجزات</span>
+        </button>
+
+        <!-- Question & Choices (Hidden until reveal finishes) -->
+        <div class="story-interactive-card" id="story-question-zone" style="display:none;">
+          <div class="story-question-prompt">
+            <span>❓ أي قصة نبي تدل عليها هذه المعجزات والأنوار؟</span>
+            <button id="btn-story-hint" class="story-hint-btn" title="تلميح">💡 تلميح</button>
+          </div>
+
+          <div id="story-hint-box" class="story-hint-alert" style="display:none;"></div>
+
+          <div class="story-choices-grid" id="story-choices-container">
+            <!-- 4 prophet choice buttons -->
+          </div>
+        </div>
+
+        <!-- Moral & Lesson Announcement Banner -->
+        <div id="story-moral-banner" class="story-moral-card" style="display:none;">
+          <div class="story-moral-icon">✨</div>
+          <div class="story-moral-content">
+            <h4 id="story-moral-title">أحسنت يا بطل! 🌟</h4>
+            <p id="story-moral-body"></p>
+          </div>
+          <button id="btn-next-story-question" class="btn-primary-big" style="margin-top:10px; width:100%;">
+            <span>القصة التالية ➔</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: CONQUEST MAP CAMPAIGNS SELECT (Game 4) -->
+      <section id="screen-conquest-levels" class="screen-panel">
+        <div class="map-header">
+          <h2>🗺️ خريطة الفتوحات - اختر الحملة</h2>
+          <p>أكمل حملات الفتوحات الثلاث لتوجه أبطال الصحابة وسفراء الإسلام وتكسب وسام الفاتح!</p>
+        </div>
+
+        <div class="memory-levels-grid" id="conquest-levels-list">
+          <!-- Conquest levels dynamically rendered via JS -->
+        </div>
+
+        <div class="memory-levels-footer-actions" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+          <button id="btn-view-conquest-certificate" class="btn-primary-big" style="display:none; background:linear-gradient(180deg, #059669, #047857); border-bottom-color:#064e3b;">
+            <span>📜 استلام / عرض شهادة فاتح بلاد الإسلام</span>
+          </button>
+          <button id="btn-conquest-levels-to-hub" class="btn-secondary">
+            <span>العودة لبوابة الألعاب 🏰</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: CONQUEST MAP ARENA (Game 4) -->
+      <section id="screen-conquest-game" class="screen-panel">
+        <div class="stage-header-bar">
+          <div class="stage-title"><span id="conquest-level-title-icon">🗺️</span> <span id="conquest-level-title-text">الحملة 1: سفراء الهداية</span></div>
+          <button class="btn-secondary" id="btn-conquest-back-levels" style="width:auto; padding:6px 12px; font-size:0.9rem;">الحملات 🗺️</button>
+        </div>
+
+        <!-- Mission briefing card -->
+        <div class="conquest-mission-card" id="conquest-mission-box">
+          <div class="conquest-mission-badge" id="conquest-mission-badge">📍 المهمة الحالية:</div>
+          <p id="conquest-mission-desc">اسحب بطل الصحابة أو انقر عليه ثم اختر المدينة المناسبة على الخريطة!</p>
+        </div>
+
+        <!-- Interactive Map Container -->
+        <div class="conquest-map-viewport">
+          <div class="conquest-map-board" id="conquest-map-board">
+            <!-- Cities/Targets dynamically injected on map -->
+          </div>
+        </div>
+
+        <!-- Heroes deployment tray -->
+        <div class="conquest-heroes-tray-wrapper">
+          <div class="conquest-tray-header">
+            <span>⚔️ أبطال الصحابة (اسحب البطل أو انقر عليه):</span>
+            <span class="heroes-left-count" id="conquest-heroes-count">4 / 4</span>
+          </div>
+          <div class="conquest-heroes-tray" id="conquest-heroes-tray">
+            <!-- Hero draggable tokens injected via JS -->
+          </div>
+        </div>
+
+        <!-- Historical Fact Announcement Banner -->
+        <div id="conquest-fact-banner" class="conquest-fact-card" style="display:none;">
+          <div class="conquest-fact-icon">🚩</div>
+          <div class="conquest-fact-content">
+            <h4 id="conquest-fact-title">فتح مبارك! 🌟</h4>
+            <p id="conquest-fact-body"></p>
+          </div>
+          <button id="btn-next-conquest-hero" class="btn-primary-big" style="margin-top:10px; width:100%;">
+            <span>المهمة التالية ➔</span>
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- GLOBAL PERSISTENT FOOTER (فوتر ثابت في كل الصفحات) -->
+    <footer id="app-global-footer">
+      <div class="footer-dua">🤲 لعلها تكون في ميزان حسنات والدي</div>
+      <div class="footer-credit">
+        <span>تم تصميمها بواسطة <strong>محمود كامل</strong></span>
+      </div>
+    </footer>
+
+    <!-- UNIFIED HERO PROFILE & PASSPORT MODAL (ملف وإنجازات البطل) -->
+    <div id="modal-passport" class="modal-overlay">
+      <div class="modal-card passport-card hero-profile-modal-card">
+        <button class="modal-close-btn" id="btn-close-passport">&times;</button>
+        
+        <div class="passport-header">
+          <div class="passport-emblem">🌟</div>
+          <h2>ملف وإنجازات البطل</h2>
+          <p class="passport-sub">منصة المسلم الصغير</p>
+        </div>
+
+        <!-- 1. HERO IDENTITY CARD -->
+        <div class="passport-info-row">
+          <div class="passport-avatar" id="passport-avatar-view">👦</div>
+          <div class="passport-details">
+            <div><strong>اسم البطل:</strong> <span id="passport-name-view">زائر</span></div>
+            <div><strong>رصيد الحسنات:</strong> <span id="passport-hasanat-view">0</span> ⭐</div>
+            <div><strong>محطات الحج:</strong> <span id="passport-progress-view">0 / 9</span> 🕋</div>
+            <div><strong>كلمات القرآن:</strong> <span id="passport-quran-count-view">0 / 18</span> 📖</div>
+            <div><strong>معجزات الأنبياء:</strong> <span id="passport-story-count-view">0 / 12</span> ✨</div>
+            <div><strong>فتوحات الصحابة:</strong> <span id="passport-conquest-count-view">0 / 12</span> 🗺️</div>
+          </div>
+        </div>
+
+        <!-- 2. HAJJ PASSPORT STAMPS -->
+        <div class="profile-section-block">
+          <div class="profile-section-title">
+            <span>🕋 أختام جواز سفر الحج (المناسك المكتملة)</span>
+            <span class="section-count-badge" id="badge-hajj-count">0 / 9</span>
+          </div>
+          <div class="stamps-grid" id="passport-stamps-container"></div>
+        </div>
+
+        <!-- 3. QURAN WORDS & MEANINGS ALBUM -->
+        <div class="profile-section-block">
+          <div class="profile-section-title">
+            <span>📖 قاموس وألبوم كلمات القرآن المكتشفة</span>
+            <span class="section-count-badge" id="badge-quran-count">0 / 18</span>
+          </div>
+          <div class="album-cards-grid" id="album-cards-container"></div>
+        </div>
+
+        <!-- 4. PROPHETS' MIRACLES & STORIES ARCHIVE -->
+        <div class="profile-section-block">
+          <div class="profile-section-title">
+            <span>✨ سجل معجزات وقصص الأنبياء</span>
+            <span class="section-count-badge" id="badge-prophets-count">0 / 12</span>
+          </div>
+          <div class="prophets-cards-grid" id="prophets-cards-container"></div>
+        </div>
+
+        <!-- 5. CONQUESTS & SAHABA HEROES ARCHIVE -->
+        <div class="profile-section-block">
+          <div class="profile-section-title">
+            <span>🗺️ سجل فتوحات وسفراء الإسلام</span>
+            <span class="section-count-badge" id="badge-conquest-count">0 / 12</span>
+          </div>
+          <div class="prophets-cards-grid" id="conquest-cards-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILES & HEROES MODAL (نافذة تبديل وإدارة حسابات الأبطال) -->
+    <div id="modal-profiles" class="modal-overlay">
+      <div class="modal-card profiles-modal-card">
+        <button class="modal-close-btn" id="btn-close-profiles">&times;</button>
+        <div class="passport-header">
+          <div class="passport-emblem">🪪</div>
+          <h2>أبطال منصة المسلم الصغير</h2>
+          <p class="passport-sub">اختر بطلك الحالي للمتابعة أو أضف بطلاً جديداً</p>
+        </div>
+
+        <div class="profiles-list-container" id="profiles-list-view"></div>
+
+        <button id="btn-add-new-profile" class="btn-primary-big" style="margin-top: 14px;">
+          <span>➕ إضافة بطل جديد (طفل آخر)</span>
+        </button>
+
+        <div class="reset-zone-box">
+          <button id="btn-reset-all-data" class="btn-danger-link">
+            <span>🗑️ مسح جميع الحسابات وتصفير الذاكرة</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEVEL SUCCESS MODAL -->
+    <div id="modal-success" class="modal-overlay">
+      <div class="modal-card success-card">
+        <div class="success-icon-anim">🎉</div>
+        <h2 id="success-title">أحسنت يا بطل! ما شاء الله</h2>
+        <p id="success-desc">أتممت هذه المحطة بنجاح وكسبت حسنات كثيرة!</p>
+        
+        <div class="success-reward-box">
+          <div class="reward-item">
+            <span class="reward-icon">⭐</span>
+            <span class="reward-val" id="success-stars">+100 حسنة</span>
+          </div>
+          <div class="reward-item">
+            <span class="reward-icon">🏷️</span>
+            <span class="reward-val" id="success-stamp-name">ختم الإنجاز</span>
+          </div>
+        </div>
+
+        <div class="success-actions">
+          <button id="btn-next-level" class="btn-primary-big">
+            <span>المتابعة ➔</span>
+          </button>
+          <button id="btn-back-to-map" class="btn-secondary">
+            <span>العودة للقائمة 🗺️</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATE MODAL -->
+    <div id="modal-certificate" class="modal-overlay">
+      <div class="modal-card certificate-card">
+        <button class="modal-close-btn" id="btn-close-certificate">&times;</button>
+        
+        <div id="certificate-printable" class="certificate-frame">
+          <div class="cert-border-inner">
+            <div class="cert-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div class="cert-icon">🕋</div>
+            <h1 class="cert-title">شهادة الحاج الصغير</h1>
+            <p class="cert-intro">تشهد إدارة رحلة الإيمان بأن البطل المتميز:</p>
+            <h2 class="cert-student-name" id="cert-name">أحمد البطل</h2>
+            <p class="cert-body">
+              قد أتم بنجاح كامل مناسك <strong>رحلة إلى بيت الله</strong> المباركة،
+              وتعلم أركان الحج والعمرة والآداب الإسلامية بجد ونشاط، وجمع <strong id="cert-hasanat">500</strong> حسنة مباركة!
+            </p>
+            <div class="cert-badge-row">
+              <div class="cert-stamp-badge">
+                <span class="stamp-circle">حج مبرور</span>
+              </div>
+              <div class="cert-seal">
+                <span>⭐ وسام التميز ⭐</span>
+              </div>
+            </div>
+            <div class="cert-date">تاريخ الإنجاز: <span id="cert-date-val"></span></div>
+          </div>
+        </div>
+
+        <div class="cert-actions">
+          <button id="btn-print-cert" class="btn-primary-big">
+            <span>🖨️ طباعة / حفظ الشهادة</span>
+          </button>
+          <button id="btn-close-cert-action" class="btn-secondary" style="margin-top: 10px;">
+            <span>العودة للخريطة 🗺️</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEMORY GAME CERTIFICATE MODAL -->
+    <div id="modal-memory-certificate" class="modal-overlay">
+      <div class="modal-card certificate-card">
+        <button class="modal-close-btn" id="btn-close-mem-cert">&times;</button>
+        
+        <div id="mem-certificate-printable" class="certificate-frame" style="border-color:#8b5cf6;">
+          <div class="cert-border-inner" style="border-color:#c4b5fd;">
+            <div class="cert-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div class="cert-icon">📖</div>
+            <h1 class="cert-title" style="color:#5b21b6;">شهادة حافظ كلمات القرآن</h1>
+            <p class="cert-intro">تشهد منصة المسلم الصغير بأن البطل المتميز:</p>
+            <h2 class="cert-student-name" id="mem-cert-name" style="color:#7c3aed;">حمزة البطل</h2>
+            <p class="cert-body">
+              قد أتم بنجاح جميع مستويات لعبة <strong>«آية ومعنى»</strong>،
+              وحفظ وفهم معاني مفردات القرآن الكريم من قصار السور بإتقان، وجمع <strong id="mem-cert-hasanat">310</strong> حسنة مباركة!
+            </p>
+            <div class="cert-badge-row">
+              <div class="cert-stamp-badge" style="background:#f5f3ff; border-color:#8b5cf6;">
+                <span class="stamp-circle" style="color:#6d28d9;">حافظ القرآن</span>
+              </div>
+              <div class="cert-seal" style="background:#faf5ff; border-color:#8b5cf6;">
+                <span style="color:#5b21b6;">⭐ وسام الإتقان ⭐</span>
+              </div>
+            </div>
+            <div class="cert-date">تاريخ الإنجاز: <span id="mem-cert-date-val"></span></div>
+          </div>
+        </div>
+
+        <div class="cert-actions">
+          <button id="btn-print-mem-cert" class="btn-primary-big" style="background:linear-gradient(180deg, #8b5cf6, #6d28d9); border-bottom-color:#4c1d95;">
+            <span>🖨️ طباعة / حفظ الشهادة</span>
+          </button>
+          <button id="btn-close-mem-cert-action" class="btn-secondary" style="margin-top: 10px;">
+            <span>العودة للمستويات 🎴</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY BLOCKS CERTIFICATE MODAL -->
+    <div id="modal-story-certificate" class="modal-overlay">
+      <div class="modal-card certificate-card">
+        <button class="modal-close-btn" id="btn-close-story-cert">&times;</button>
+        
+        <div id="story-certificate-printable" class="certificate-frame" style="border-color:#d97706;">
+          <div class="cert-border-inner" style="border-color:#fcd34d;">
+            <div class="cert-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div class="cert-icon">✨</div>
+            <h1 class="cert-title" style="color:#b45309;">شهادة راوي معجزات الأنبياء</h1>
+            <p class="cert-intro">تشهد منصة المسلم الصغير بأن البطل المتميز:</p>
+            <h2 class="cert-student-name" id="story-cert-name" style="color:#d97706;">حمزة البطل</h2>
+            <p class="cert-body">
+              قد أتم بنجاح كامل مستويات لعبة <strong>«معجزات وقصص الأنبياء»</strong>،
+              وتعرف على أنوار ومعجزات أنبياء الله ورسله عليهم السلام بذكاء وبراعة، وجمع <strong id="story-cert-hasanat">360</strong> حسنة مباركة!
+            </p>
+            <div class="cert-badge-row">
+              <div class="cert-stamp-badge" style="background:#fffbeb; border-color:#d97706;">
+                <span class="stamp-circle" style="color:#b45309;">راوي المعجزات ✨</span>
+              </div>
+              <div class="cert-seal" style="background:#fef3c7; border-color:#d97706;">
+                <span style="color:#92400e;">⭐ وسام الأنوار والبركة ⭐</span>
+              </div>
+            </div>
+            <div class="cert-date">تاريخ الإنجاز: <span id="story-cert-date-val"></span></div>
+          </div>
+        </div>
+
+        <div class="cert-actions">
+          <button id="btn-print-story-cert" class="btn-primary-big" style="background:linear-gradient(180deg, #d97706, #b45309); border-bottom-color:#78350f;">
+            <span>🖨️ طباعة / حفظ الشهادة</span>
+          </button>
+          <button id="btn-close-story-cert-action" class="btn-secondary" style="margin-top: 10px;">
+            <span>العودة للمستويات ✨</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONQUEST MAP CERTIFICATE MODAL -->
+    <div id="modal-conquest-certificate" class="modal-overlay">
+      <div class="modal-card certificate-card">
+        <button class="modal-close-btn" id="btn-close-conquest-cert">&times;</button>
+        
+        <div id="conquest-certificate-printable" class="certificate-frame" style="border-color:#059669;">
+          <div class="cert-border-inner" style="border-color:#6ee7b7;">
+            <div class="cert-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div class="cert-icon">🗺️</div>
+            <h1 class="cert-title" style="color:#047857;">شهادة فاتح بلاد الإسلام</h1>
+            <p class="cert-intro">تشهد منصة المسلم الصغير بأن البطل المتميز:</p>
+            <h2 class="cert-student-name" id="conquest-cert-name" style="color:#059669;">حمزة البطل</h2>
+            <p class="cert-body">
+              قد أتم بنجاح كامل حملات لعبة <strong>«خريطة الفتوحات وسفراء الإسلام»</strong>،
+              وتعرف على جغرافيا التاريخ الإسلامي ومواقف أبطال الصحابة وسفراء النبي ﷺ بذكاء وشجاعة، وجمع <strong id="conquest-cert-hasanat">400</strong> حسنة مباركة!
+            </p>
+            <div class="cert-badge-row">
+              <div class="cert-stamp-badge" style="background:#ecfdf5; border-color:#059669;">
+                <span class="stamp-circle" style="color:#047857;">فاتح وراوي 🚩</span>
+              </div>
+              <div class="cert-seal" style="background:#f0fdf4; border-color:#059669;">
+                <span style="color:#065f46;">⭐ وسام الفاتح الصغير ⭐</span>
+              </div>
+            </div>
+            <div class="cert-date">تاريخ الإنجاز: <span id="conquest-cert-date-val"></span></div>
+          </div>
+        </div>
+
+        <div class="cert-actions">
+          <button id="btn-print-conquest-cert" class="btn-primary-big" style="background:linear-gradient(180deg, #059669, #047857); border-bottom-color:#064e3b;">
+            <span>🖨️ طباعة / حفظ الشهادة</span>
+          </button>
+          <button id="btn-close-conquest-cert-action" class="btn-secondary" style="margin-top: 10px;">
+            <span>العودة للحملات 🗺️</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOM BEAUTIFUL ALERT / CONFIRM MODAL -->
+    <div id="modal-custom-alert" class="modal-overlay" style="z-index: 10005;">
+      <div class="modal-card custom-alert-card">
+        <div class="alert-icon-anim" id="alert-icon-view">💡</div>
+        <h2 id="alert-title-view">تنبيه لطيف يا بطل</h2>
+        <p id="alert-msg-view">نص التنبيه يظهر هنا...</p>
+        
+        <div class="alert-actions-row" id="alert-actions-container">
+          <button id="btn-alert-primary" class="btn-primary-big">
+            <span id="btn-alert-primary-text">حسناً يا بطل 🌟</span>
+          </button>
+          <button id="btn-alert-cancel" class="btn-secondary" style="display:none; margin-top:8px;">
+            <span id="btn-alert-cancel-text">إلغاء ❌</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
