@@ -500,53 +500,441 @@ body {
   font-size: 1.5rem;
 }
 
-.memory-lvl-card h3 {
-  font-size: 1.15rem;
+/* ==========================================================
+   ISLAMIC WINDING PATH WORLD MAP (خريطة الدرب القرآني التفاعلية 30 مرحلة)
+   ========================================================== */
+.quran-map-header-hud {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  border: 2px solid #86efac;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.08);
+}
+
+.hud-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.hud-top-row h2 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #047857;
+  margin: 0;
+}
+
+.hud-stars-badge {
+  background: #fef3c7;
+  border: 1.5px solid #fde047;
+  color: #92400e;
+  font-weight: 900;
+  font-size: 0.85rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.quran-map-progress-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quran-progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #065f46;
+}
+
+.quran-progress-track {
+  width: 100%;
+  height: 9px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+}
+
+.quran-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #059669);
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Map Viewport & Landscape */
+.quran-world-map-viewport {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  max-height: 72vh;
+  border-radius: var(--radius-lg);
+  border: 3px solid #059669;
+  box-shadow: 0 10px 30px rgba(4, 120, 87, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.08);
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  scrollbar-width: thin;
+  scrollbar-color: #10b981 rgba(0, 0, 0, 0.05);
+  background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 30%, #86efac 60%, #6ee7b7 100%);
+  user-select: none;
+  cursor: grab;
+}
+
+.quran-world-map-viewport:active {
+  cursor: grabbing;
+}
+
+.quran-world-map-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quran-world-map-viewport::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 999px;
+}
+
+.quran-world-map-viewport::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #10b981, #059669);
+  border-radius: 999px;
+}
+
+.quran-world-map-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 4800px;
+  min-height: 4800px;
+  background: 
+    radial-gradient(ellipse at 50% 10%, rgba(254, 240, 138, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 40%, rgba(147, 197, 253, 0.4) 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 70%, rgba(253, 230, 138, 0.3) 0%, transparent 40%),
+    linear-gradient(180deg, 
+      #86efac 0%, 
+      #a7f3d0 25%, 
+      #93c5fd 50%, 
+      #fde047 75%, 
+      #86efac 100%);
+}
+
+/* SVG Road & River Layer */
+.quran-map-road-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Road Styling in SVG */
+.road-outer-border {
+  fill: none;
+  stroke: #b45309;
+  stroke-width: 48;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.road-main-track {
+  fill: none;
+  stroke: #fbbf24;
+  stroke-width: 40;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.road-inner-dash {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-dasharray: 8 8;
+  stroke-linecap: round;
+}
+
+.river-stream-path {
+  fill: none;
+  stroke: #38bdf8;
+  stroke-width: 36;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+
+/* Decorative Scenery Elements (Pure visual background icons - no text collisions) */
+.map-scenery-deco {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.map-scenery-icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
+
+.map-scenery-label {
+  display: none !important;
+}
+
+/* 3D Glossy Game Node (Exact Game Style as reference) */
+.quran-map-node-item {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.quran-map-node-item:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  z-index: 10;
+}
+
+/* 3 Stars floating on top edge of node */
+.node-top-stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  margin-bottom: -6px;
+  z-index: 6;
+  font-size: 0.75rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  animation: floatUpFade 2s infinite alternate ease-in-out;
+}
+
+/* 3D Rounded Node Button */
+.node-3d-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  position: relative;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.node-inner-num {
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Node States: Completed (Ruby/Gold 3D Star Button) */
+.quran-map-node-item.completed .node-3d-btn {
+  background: linear-gradient(180deg, #f87171 0%, #dc2626 50%, #b91c1c 100%);
+  border: 2.5px solid #fecaca;
+  color: #ffffff;
+  box-shadow: 0 5px 0 #7f1d1d, 0 8px 16px rgba(185, 28, 28, 0.35);
+}
+
+.quran-map-node-item.completed .node-inner-num {
+  font-size: 1.4rem;
+  color: #fef08a;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+}
+
+/* Node States: Current / Active (Glowing Purple/Gold 3D Button) */
+.quran-map-node-item.current .node-3d-btn {
+  background: linear-gradient(180deg, #a855f7 0%, #7c3aed 50%, #5b21b6 100%);
+  border: 3px solid #fde047;
+  color: #ffffff;
+  box-shadow: 0 5px 0 #4c1d95, 0 0 20px rgba(139, 92, 246, 0.7);
+  animation: pulseLight 1.4s infinite;
+}
+
+.quran-map-node-item.current .node-inner-num {
+  font-size: 1.3rem;
+  color: #ffffff;
+}
+
+/* Active Level Pointer / Bouncing Marker */
+.node-active-marker {
+  position: absolute;
+  top: -24px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 2px 7px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.5);
+  white-space: nowrap;
+  animation: bounceMini 1s infinite alternate ease-in-out;
+}
+
+@keyframes bounceMini {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+/* Node States: Locked (Muted Slate 3D Stone) */
+.quran-map-node-item.locked .node-3d-btn {
+  background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
+  border: 2px solid #cbd5e1;
+  color: #e2e8f0;
+  box-shadow: 0 4px 0 #475569;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.quran-map-node-item.locked .node-inner-num {
+  font-size: 1.1rem;
+}
+
+/* Surah Title Pill underneath node */
+.node-surah-pill {
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-size: 0.74rem;
+  font-weight: 900;
+  color: #1e293b;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  pointer-events: none;
+  text-align: center;
+}
+
+.quran-map-node-item.completed .node-surah-pill {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #065f46;
+}
+
+.quran-map-node-item.current .node-surah-pill {
+  border-color: #c4b5fd;
+  background: #faf5ff;
   color: #5b21b6;
   font-weight: 900;
 }
 
-.memory-lvl-card p {
-  font-size: 0.85rem;
-  color: #64748b;
-  font-weight: 700;
+/* Bottom Bar & Gold Certificate Button */
+.quran-map-bottom-bar {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.lvl-reward {
-  background: #fef3c7;
-  color: #92400e;
-  font-size: 0.85rem;
-  font-weight: 800;
-  padding: 4px 12px;
-  border-radius: 999px;
+.cert-gold-btn {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%) !important;
+  border-bottom-color: #92400e !important;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35) !important;
 }
 
-.memory-lvl-card.completed {
-  border-color: #10b981;
-  background: #f0fdf4;
+/* ==========================================================
+   HAJJ SACRED PILGRIMAGE MAP (خريطة درب مناسك الحج التفاعلية 9 مراحل)
+   ========================================================== */
+.hajj-hud-theme {
+  border-color: #fde047 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%) !important;
 }
 
-.memory-lvl-card.current {
-  border-color: #8b5cf6;
-  background: #faf5ff;
-  box-shadow: 0 6px 14px rgba(139, 92, 246, 0.2);
+.hajj-hud-theme h2 {
+  color: #b45309 !important;
 }
 
-.memory-lvl-card.locked {
-  opacity: 0.6;
-  background: #f8fafc;
-  border-color: #cbd5e1;
-  cursor: not-allowed;
+.hajj-progress-fill {
+  background: linear-gradient(90deg, #f59e0b, #10b981) !important;
 }
 
-.lvl-completed-badge {
-  background: #ecfdf5;
-  color: #065f46;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1px solid #6ee7b7;
+.hajj-map-viewport {
+  border-color: #d97706 !important;
+  background: linear-gradient(180deg, #fef3c7 0%, #fed7aa 50%, #fde68a 100%) !important;
+}
+
+.hajj-map-canvas {
+  height: 2200px !important;
+  min-height: 2200px !important;
+  background: 
+    radial-gradient(ellipse at 50% 10%, rgba(254, 240, 138, 0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 60%, rgba(253, 230, 138, 0.4) 0%, transparent 50%),
+    linear-gradient(180deg, #ecfdf5 0%, #fef3c7 35%, #fed7aa 70%, #fde68a 100%) !important;
+}
+
+/* ==========================================================
+   PROPHETS' STORIES WORLD MAP (خريطة درب أنوار الأنبياء 30 مرحلة)
+   ========================================================== */
+.story-hud-theme {
+  border-color: #f59e0b !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%) !important;
+}
+
+.story-hud-theme h2 {
+  color: #b45309 !important;
+}
+
+.story-progress-fill {
+  background: linear-gradient(90deg, #f59e0b, #d97706) !important;
+}
+
+.story-map-viewport {
+  border-color: #d97706 !important;
+  background: linear-gradient(180deg, #fef3c7 0%, #fed7aa 30%, #ede9fe 70%, #fef08a 100%) !important;
+}
+
+.story-map-canvas {
+  height: 4800px !important;
+  min-height: 4800px !important;
+  background: 
+    radial-gradient(ellipse at 50% 10%, rgba(254, 240, 138, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 40%, rgba(253, 230, 138, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(221, 214, 254, 0.4) 0%, transparent 50%),
+    linear-gradient(180deg, #fef9c3 0%, #fed7aa 25%, #ede9fe 50%, #fef3c7 75%, #fef08a 100%) !important;
+}
+
+/* ==========================================================
+   CONQUEST MAP ROAD (خريطة درب الفتوحات وسفراء الإسلام 30 مرحلة)
+   ========================================================== */
+.conquest-hud-theme {
+  border-color: #10b981 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%) !important;
+}
+
+.conquest-hud-theme h2 {
+  color: #047857 !important;
+}
+
+.conquest-progress-fill {
+  background: linear-gradient(90deg, #10b981, #059669) !important;
+}
+
+.conquest-map-viewport {
+  border-color: #059669 !important;
+  background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 30%, #fef3c7 70%, #dcfce7 100%) !important;
+}
+
+.conquest-map-canvas {
+  height: 4800px !important;
+  min-height: 4800px !important;
+  background: 
+    radial-gradient(ellipse at 50% 10%, rgba(167, 243, 208, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 40%, rgba(253, 230, 138, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(167, 243, 208, 0.4) 0%, transparent 50%),
+    linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 25%, #fef3c7 50%, #ecfdf5 75%, #d1fae5 100%) !important;
 }
 
 /* ==========================================================
@@ -646,6 +1034,10 @@ body {
   gap: 8px;
   margin-bottom: 14px;
   perspective: 1000px;
+}
+
+.memory-cards-grid.grid-3x2 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .memory-cards-grid.grid-4x2 {
@@ -959,6 +1351,137 @@ body {
   line-height: 1.4;
 }
 
+/* Prophet Mission Banner */
+.story-prophet-banner {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  border: 2px solid #fde68a;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.1);
+}
+
+.prophet-badge-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.25);
+  flex-shrink: 0;
+}
+
+.prophet-banner-info h3 {
+  color: #b45309;
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin-bottom: 2px;
+}
+
+.prophet-banner-info p {
+  color: #92400e;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.story-selection-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 6px 14px;
+  margin-bottom: 12px;
+  font-weight: 900;
+  font-size: 0.92rem;
+  color: #0f766e;
+}
+
+/* 6-Card Interactive Pick Grid */
+.miracles-pick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  padding: 4px;
+}
+
+.miracle-pick-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+  border: 2.5px solid #fed7aa;
+  border-bottom: 4px solid #fbd295;
+  border-radius: var(--radius-md);
+  padding: 12px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.08);
+  min-height: 105px;
+}
+
+.miracle-pick-card:hover {
+  transform: translateY(-3px);
+  border-color: #f59e0b;
+}
+
+.miracle-pick-card.selected {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-color: #d97706;
+  border-bottom-color: #b45309;
+  transform: scale(1.04);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
+}
+
+.miracle-pick-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #b45309;
+  background: #ffffff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.miracle-pick-card.correct-glow {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  border-color: #10b981 !important;
+  border-bottom-color: #059669 !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
+}
+
+.miracle-pick-card.wrong-shake {
+  animation: wrongShake 0.5s ease;
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+}
+
+@keyframes wrongShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
 .story-hint-btn {
   font-family: 'Tajawal', sans-serif !important;
   background: #fef3c7;
@@ -988,52 +1511,6 @@ body {
   font-weight: 800;
   margin-bottom: 12px;
   line-height: 1.4;
-}
-
-.story-choices-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.story-choice-btn {
-  font-family: 'Tajawal', sans-serif !important;
-  background: #fafaf9;
-  border: 2px solid #e7e5e4;
-  border-bottom: 4px solid #d6d3d1;
-  border-radius: 14px;
-  padding: 14px 10px;
-  font-weight: 800;
-  font-size: 0.96rem;
-  color: #292524;
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: center;
-  line-height: 1.35;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.04);
-}
-
-.story-choice-btn:hover, .story-choice-btn:active {
-  background: #fef3c7;
-  border-color: #f59e0b;
-  border-bottom-color: #d97706;
-  color: #92400e;
-  transform: translateY(-2px);
-}
-
-.story-choice-btn.correct-choice {
-  background: #ecfdf5 !important;
-  border-color: #10b981 !important;
-  border-bottom-color: #059669 !important;
-  color: #065f46 !important;
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
-}
-
-.story-choice-btn.wrong-choice {
-  background: #fef2f2 !important;
-  border-color: #ef4444 !important;
-  border-bottom-color: #dc2626 !important;
-  color: #991b1b !important;
 }
 
 /* Moral Announcement Banner */
@@ -1092,8 +1569,8 @@ body {
   margin: 0;
 }
 
-/* Interactive Map Viewport & Ancient Board */
-.conquest-map-viewport {
+/* Interactive Arena Board Viewport (Game 4 Single Stage) */
+.conquest-arena-viewport {
   position: relative;
   width: 100%;
   border-radius: var(--radius-lg);

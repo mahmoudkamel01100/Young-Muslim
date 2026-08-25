@@ -155,10 +155,10 @@
           <div class="game-hub-card memory-game-theme" id="card-game-memory">
             <div class="hub-card-icon">🎴</div>
             <div class="hub-card-content">
-              <h3 class="hub-game-title">آية ومعنى (لعبة الذاكرة)</h3>
-              <p class="hub-game-desc">طابق بين الكلمات القرآنية ومعانيها من قصار السور واجمع وسام وشهادة حافظ كلمات القرآن!</p>
+              <h3 class="hub-game-title">آية ومعنى (درب الكلمات القرآنية)</h3>
+              <p class="hub-game-desc">طابق بين الكلمات القرآنية ومعانيها عبر 30 مرحلة تفاعلية من قصار السور واجمع وسام وشهادة حافظ القرآن!</p>
               <div class="hub-game-meta">
-                <span>⭐ 310 حسنة</span>
+                <span>⭐ 30 مرحلة قرآنية</span>
                 <span>📜 شهادة حافظ القرآن</span>
               </div>
             </div>
@@ -172,9 +172,9 @@
             <div class="hub-card-icon">✨</div>
             <div class="hub-card-content">
               <h3 class="hub-game-title">معجزات وقصص الأنبياء</h3>
-              <p class="hub-game-desc">اكشف أنوار ومعجزات الأنبياء واكتشف قصة النبي من خلال الرموز والعبر القرآنية المنيرة!</p>
+              <p class="hub-game-desc">اكشف أنوار ومعجزات الأنبياء عبر 30 مرحلة تاريخية من آدم عليه السلام حتى خاتم المرسلين ﷺ!</p>
               <div class="hub-game-meta">
-                <span>⭐ 360 حسنة</span>
+                <span>⭐ 30 قصة ومعجزة</span>
                 <span>📜 شهادة راوي المعجزات</span>
               </div>
             </div>
@@ -183,15 +183,15 @@
             </button>
           </div>
 
-          <!-- Game 4: Conquest Map & Companions Heroes -->
+          <!-- Game 4: Conquest Map & Companions Heroes (30 مراحل) -->
           <div class="game-hub-card conquest-game-theme" id="card-game-conquest">
             <div class="hub-card-icon">🗺️</div>
             <div class="hub-card-content">
               <h3 class="hub-game-title">خريطة الفتوحات وسفراء الإسلام</h3>
-              <p class="hub-game-desc">استكشف خريطة التاريخ الإسلامي، وجّه أبطال الصحابة وسفراء النبي ﷺ إلى مدنهم وانشر رايات النور!</p>
+              <p class="hub-game-desc">استكشف خريطة التاريخ الإسلامي، وجّه أبطال الصحابة وسفراء النبي ﷺ عبر 30 مرحلة تاريخية ملحمية واكسب وسام وشهادة الفاتح!</p>
               <div class="hub-game-meta">
-                <span>⭐ 400 حسنة</span>
-                <span>📜 وسام وشهادة الفاتح</span>
+                <span>⭐ 30 فتحاً وحملة</span>
+                <span>📜 شهادة الفاتح الأعظم</span>
               </div>
             </div>
             <button class="btn-primary-big hub-play-btn">
@@ -201,20 +201,38 @@
         </div>
       </section>
 
-      <!-- SCREEN: JOURNEY MAP (FOR HAJJ GAME) -->
+      <!-- SCREEN: JOURNEY MAP (FOR HAJJ GAME: خريطة درب مناسك الحج التفاعلية 9 مراحل) -->
       <section id="screen-map" class="screen-panel">
-        <div class="map-header">
-          <h2>خريطة رحلة الإيمان 🕋</h2>
-          <p>أكمل كل محطة للحصول على الختم في جواز سفرك!</p>
+        <!-- Top Hajj HUD Header -->
+        <div class="quran-map-header-hud hajj-hud-theme">
+          <div class="hud-top-row">
+            <h2>درب مناسك الحج والعمرة 🕋</h2>
+            <div class="hud-stars-badge">
+              <span>⭐</span>
+              <strong id="hajj-map-stars-count">0</strong>
+            </div>
+          </div>
+          <div class="quran-map-progress-bar-wrap">
+            <div class="quran-progress-info">
+              <span>🕋 المناسك المكتملة:</span>
+              <strong id="hajj-map-progress-text">0 / 9</strong>
+            </div>
+            <div class="quran-progress-track">
+              <div class="quran-progress-fill hajj-progress-fill" id="hajj-map-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="map-path-container" id="map-levels-list">
-          <!-- Levels dynamically injected via JS -->
+        <!-- Interactive Holy Land Pilgrimage Map Viewport -->
+        <div class="quran-world-map-viewport hajj-map-viewport" id="hajj-world-map-viewport">
+          <div class="quran-world-map-canvas-wrap hajj-map-canvas" id="map-levels-list">
+            <!-- SVG Holy Pilgrimage Road & 3D Interactive Stages injected via JS -->
+          </div>
         </div>
 
-        <div class="map-footer-actions">
-          <button id="btn-view-certificate" class="btn-secondary" style="display:none; margin-bottom:8px;">
-            <span>📜 عرض شهادة الحاج الصغير</span>
+        <div class="quran-map-bottom-bar">
+          <button id="btn-view-certificate" class="btn-primary-big cert-gold-btn" style="display:none;">
+            <span>📜 استلام وسام وشهادة الحاج الصغير (9 مناسك)</span>
           </button>
           <button id="btn-map-to-hub" class="btn-secondary">
             <span>العودة لبوابة الألعاب 🏰</span>
@@ -229,20 +247,38 @@
         </div>
       </section>
 
-      <!-- SCREEN: MEMORY GAME LEVEL SELECT -->
+      <!-- SCREEN: MEMORY GAME LEVEL SELECT (خريطة درب الكلمات القرآنية 30 مرحلة) -->
       <section id="screen-memory-levels" class="screen-panel">
-        <div class="map-header">
-          <h2>🎴 آية ومعنى - اختر المستوى</h2>
-          <p>أكمل المستويات الثلاثة للحصول على وسام وشهادة حافظ كلمات القرآن!</p>
+        <!-- Top Islamic Header HUD -->
+        <div class="quran-map-header-hud">
+          <div class="hud-top-row">
+            <h2>درب الكلمات القرآنية 🎴</h2>
+            <div class="hud-stars-badge">
+              <span>⭐</span>
+              <strong id="quran-map-stars-count">0</strong>
+            </div>
+          </div>
+          <div class="quran-map-progress-bar-wrap">
+            <div class="quran-progress-info">
+              <span>📖 المحطات المكتملة:</span>
+              <strong id="quran-map-progress-text">0 / 30</strong>
+            </div>
+            <div class="quran-progress-track">
+              <div class="quran-progress-fill" id="quran-map-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="memory-levels-grid" id="memory-levels-list">
-          <!-- Levels dynamically rendered with completion and stars via JS -->
+        <!-- Full Interactive Islamic Winding Map Viewport -->
+        <div class="quran-world-map-viewport" id="quran-world-map-viewport">
+          <div class="quran-world-map-canvas-wrap" id="memory-levels-list">
+            <!-- SVG Winding Road & 3D Interactive Nodes injected via JS -->
+          </div>
         </div>
 
-        <div class="memory-levels-footer-actions" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
-          <button id="btn-view-memory-certificate" class="btn-primary-big" style="display:none; background:linear-gradient(180deg, #8b5cf6, #6d28d9); border-bottom-color:#4c1d95;">
-            <span>📜 استلام / عرض شهادة حافظ كلمات القرآن</span>
+        <div class="quran-map-bottom-bar">
+          <button id="btn-view-memory-certificate" class="btn-primary-big cert-gold-btn" style="display:none;">
+            <span>📜 استلام وسام وشهادة حافظ القرآن (30 مرحلة)</span>
           </button>
           <button id="btn-memory-levels-to-hub" class="btn-secondary">
             <span>العودة لبوابة الألعاب 🏰</span>
@@ -294,20 +330,38 @@
         </div>
       </section>
 
-      <!-- SCREEN: MIRACLES STORY LEVEL SELECT -->
+      <!-- SCREEN: MIRACLES STORY LEVEL SELECT (خريطة درب أنوار وقصص الأنبياء 30 مرحلة) -->
       <section id="screen-story-levels" class="screen-panel">
-        <div class="map-header">
-          <h2>✨ معجزات وقصص الأنبياء - اختر المستوى</h2>
-          <p>اكشف أنوار ومعجزات الأنبياء واكتشف قصصهم المباركة لتحصل على وسام وشهادة راوي المعجزات!</p>
+        <!-- Top Story HUD Header -->
+        <div class="quran-map-header-hud story-hud-theme">
+          <div class="hud-top-row">
+            <h2>درب أنوار وقصص الأنبياء ✨</h2>
+            <div class="hud-stars-badge">
+              <span>⭐</span>
+              <strong id="story-map-stars-count">0</strong>
+            </div>
+          </div>
+          <div class="quran-map-progress-bar-wrap">
+            <div class="quran-progress-info">
+              <span>✨ القصص والمعجزات المكتملة:</span>
+              <strong id="story-map-progress-text">0 / 30</strong>
+            </div>
+            <div class="quran-progress-track">
+              <div class="quran-progress-fill story-progress-fill" id="story-map-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="memory-levels-grid" id="story-levels-list">
-          <!-- Story levels dynamically injected via JS -->
+        <!-- Interactive Prophets World Map Viewport -->
+        <div class="quran-world-map-viewport story-map-viewport" id="story-world-map-viewport">
+          <div class="quran-world-map-canvas-wrap story-map-canvas" id="story-levels-list">
+            <!-- SVG Prophets Road & 3D Interactive Stages injected via JS -->
+          </div>
         </div>
 
-        <div class="memory-levels-footer-actions" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
-          <button id="btn-view-story-certificate" class="btn-primary-big" style="display:none; background:linear-gradient(180deg, #d97706, #b45309); border-bottom-color:#78350f;">
-            <span>📜 استلام / عرض شهادة راوي معجزات الأنبياء</span>
+        <div class="quran-map-bottom-bar">
+          <button id="btn-view-story-certificate" class="btn-primary-big cert-gold-btn" style="display:none;">
+            <span>📜 استلام وسام وشهادة راوي معجزات الأنبياء (30 مرحلة)</span>
           </button>
           <button id="btn-story-levels-to-hub" class="btn-secondary">
             <span>العودة لبوابة الألعاب 🏰</span>
@@ -315,75 +369,96 @@
         </div>
       </section>
 
-      <!-- SCREEN: MIRACLES STORY ARENA -->
+      <!-- SCREEN: MIRACLES STORY ARENA (اختر المعجزات الـ 3 لكل نبي) -->
       <section id="screen-story-game" class="screen-panel">
         <div class="stage-header-bar">
-          <div class="stage-title"><span id="story-level-title-icon">✨</span> <span id="story-level-title-text">المستوى 1: المستكشف الصغير</span></div>
-          <button class="btn-secondary" id="btn-story-back-levels" style="width:auto; padding:6px 12px; font-size:0.9rem;">المستويات ✨</button>
+          <div class="stage-title"><span id="story-level-title-icon">✨</span> <span id="story-level-title-text">المرحلة 1: سيدنا آدم عليه السلام</span></div>
+          <button class="btn-secondary" id="btn-story-back-levels" style="width:auto; padding:6px 12px; font-size:0.9rem;">خريطة المستويات 🗺️</button>
         </div>
 
         <div class="story-progress-indicator">
-          <span>القصة (<span id="story-current-num">1</span> من <span id="story-total-num">4</span>)</span>
+          <span>المرحلة (<span id="story-current-num">1</span> من <span id="story-total-num">30</span>)</span>
           <div class="story-dots-row" id="story-dots-container"></div>
         </div>
 
-        <!-- Light & Miracles Glowing Tray -->
+        <!-- Big Prophet Mission Banner -->
+        <div class="story-prophet-banner">
+          <div class="prophet-badge-icon" id="story-prophet-icon">✨</div>
+          <div class="prophet-banner-info">
+            <h3 id="story-prophet-name">سيدنا نوح عليه السلام</h3>
+            <p id="story-prophet-subtitle">اختر المعجزات والأنوار الـ 3 الخاصة بهذا النبي المبارك</p>
+          </div>
+        </div>
+
+        <!-- Selection Tracker & Hint Bar -->
+        <div class="story-selection-tracker">
+          <span id="story-selection-counter-text">🎯 اختر المعجزات الـ 3 (المحدد: ٠ / ٣)</span>
+          <button id="btn-story-hint" class="story-hint-btn" title="تلميح">💡 تلميح</button>
+        </div>
+
+        <div id="story-hint-box" class="story-hint-alert" style="display:none;"></div>
+
+        <!-- Light & Miracles Glowing Tray (6 Cards Grid) -->
         <div class="wooden-tray-container" id="wooden-tray-box">
           <div class="wooden-tray-rim">
             <div class="wooden-tray-felt" id="dice-felt-area">
-              <div class="dice-roll-container" id="active-dice-grid">
-                <!-- Glowing Miracles Cards injected via JS -->
+              <div class="miracles-pick-grid" id="active-dice-grid">
+                <!-- 6 interactive Miracle Cards dynamically injected via JS -->
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Reveal Miracles Button -->
-        <button id="btn-roll-story-dice" class="btn-primary-big story-roll-btn pulse-anim">
-          <span>✨ اكشف أنوار المعجزات</span>
+        <!-- Confirm Selection Button -->
+        <button id="btn-confirm-miracles" class="btn-primary-big pulse-anim" style="display:none; margin-top:12px; background:linear-gradient(180deg, #10b981, #059669); border-bottom-color:#047857;">
+          <span>✅ تأكيد اختياري للمعجزات الـ 3</span>
         </button>
-
-        <!-- Question & Choices (Hidden until reveal finishes) -->
-        <div class="story-interactive-card" id="story-question-zone" style="display:none;">
-          <div class="story-question-prompt">
-            <span>❓ أي قصة نبي تدل عليها هذه المعجزات والأنوار؟</span>
-            <button id="btn-story-hint" class="story-hint-btn" title="تلميح">💡 تلميح</button>
-          </div>
-
-          <div id="story-hint-box" class="story-hint-alert" style="display:none;"></div>
-
-          <div class="story-choices-grid" id="story-choices-container">
-            <!-- 4 prophet choice buttons -->
-          </div>
-        </div>
 
         <!-- Moral & Lesson Announcement Banner -->
         <div id="story-moral-banner" class="story-moral-card" style="display:none;">
-          <div class="story-moral-icon">✨</div>
+          <div class="story-moral-icon">🌟</div>
           <div class="story-moral-content">
             <h4 id="story-moral-title">أحسنت يا بطل! 🌟</h4>
             <p id="story-moral-body"></p>
           </div>
           <button id="btn-next-story-question" class="btn-primary-big" style="margin-top:10px; width:100%;">
-            <span>القصة التالية ➔</span>
+            <span>المرحلة التالية ➔</span>
           </button>
         </div>
       </section>
 
-      <!-- SCREEN: CONQUEST MAP CAMPAIGNS SELECT (Game 4) -->
+      <!-- SCREEN: CONQUEST MAP CAMPAIGNS SELECT (Game 4: خريطة الفتوحات وسفراء الإسلام 30 مرحلة) -->
       <section id="screen-conquest-levels" class="screen-panel">
-        <div class="map-header">
-          <h2>🗺️ خريطة الفتوحات - اختر الحملة</h2>
-          <p>أكمل حملات الفتوحات الثلاث لتوجه أبطال الصحابة وسفراء الإسلام وتكسب وسام الفاتح!</p>
+        <!-- Top Emerald Conquest Header HUD -->
+        <div class="quran-map-header-hud conquest-hud-theme">
+          <div class="hud-top-row">
+            <h2>درب الفتوحات وسفراء الإسلام 🗺️</h2>
+            <div class="hud-stars-badge">
+              <span>⭐</span>
+              <strong id="conquest-map-stars-count">0</strong>
+            </div>
+          </div>
+          <div class="quran-map-progress-bar-wrap">
+            <div class="quran-progress-info">
+              <span>🚩 الفتوحات والحملات المكتملة:</span>
+              <strong id="conquest-map-progress-text">0 / 30</strong>
+            </div>
+            <div class="quran-progress-track">
+              <div class="quran-progress-fill conquest-progress-fill" id="conquest-map-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="memory-levels-grid" id="conquest-levels-list">
-          <!-- Conquest levels dynamically rendered via JS -->
+        <!-- Full Interactive Emerald Winding Map Viewport -->
+        <div class="quran-world-map-viewport conquest-map-viewport" id="conquest-world-map-viewport">
+          <div class="quran-world-map-canvas-wrap conquest-map-canvas" id="conquest-levels-list">
+            <!-- SVG Winding Road & 3D Interactive Stages injected via JS -->
+          </div>
         </div>
 
-        <div class="memory-levels-footer-actions" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;">
-          <button id="btn-view-conquest-certificate" class="btn-primary-big" style="display:none; background:linear-gradient(180deg, #059669, #047857); border-bottom-color:#064e3b;">
-            <span>📜 استلام / عرض شهادة فاتح بلاد الإسلام</span>
+        <div class="quran-map-bottom-bar">
+          <button id="btn-view-conquest-certificate" class="btn-primary-big cert-gold-btn" style="display:none; background:linear-gradient(180deg, #059669, #047857); border-bottom-color:#064e3b;">
+            <span>📜 استلام وسام وشهادة فاتح بلاد الإسلام (30 مرحلة)</span>
           </button>
           <button id="btn-conquest-levels-to-hub" class="btn-secondary">
             <span>العودة لبوابة الألعاب 🏰</span>
@@ -405,7 +480,7 @@
         </div>
 
         <!-- Interactive Map Container -->
-        <div class="conquest-map-viewport">
+        <div class="conquest-arena-viewport">
           <div class="conquest-map-board" id="conquest-map-board">
             <!-- Cities/Targets dynamically injected on map -->
           </div>
@@ -439,7 +514,7 @@
 
     <!-- GLOBAL PERSISTENT FOOTER (فوتر ثابت في كل الصفحات) -->
     <footer id="app-global-footer">
-      <div class="footer-dua">🤲 لعلها تكون في ميزان حسنات والدي</div>
+      <div class="footer-dua">🤲 لعلها تكون في ميزان حسنات والداي</div>
       <div class="footer-credit">
         <span>تم تصميمها بواسطة <strong>محمود كامل</strong></span>
       </div>
@@ -612,8 +687,8 @@
             <p class="cert-intro">تشهد منصة المسلم الصغير بأن البطل المتميز:</p>
             <h2 class="cert-student-name" id="mem-cert-name" style="color:#7c3aed;">حمزة البطل</h2>
             <p class="cert-body">
-              قد أتم بنجاح جميع مستويات لعبة <strong>«آية ومعنى»</strong>،
-              وحفظ وفهم معاني مفردات القرآن الكريم من قصار السور بإتقان، وجمع <strong id="mem-cert-hasanat">310</strong> حسنة مباركة!
+              قد أتم بنجاح كامل محطات لعبة <strong>«آية ومعنى»</strong> الثلاثين (30 مرحلة قرآنية)،
+              وحفظ وفهم معاني مفردات القرآن الكريم من قصار السور بإتقان، وجمع <strong id="mem-cert-hasanat">1500</strong> حسنة مباركة!
             </p>
             <div class="cert-badge-row">
               <div class="cert-stamp-badge" style="background:#f5f3ff; border-color:#8b5cf6;">
@@ -651,8 +726,8 @@
             <p class="cert-intro">تشهد منصة المسلم الصغير بأن البطل المتميز:</p>
             <h2 class="cert-student-name" id="story-cert-name" style="color:#d97706;">حمزة البطل</h2>
             <p class="cert-body">
-              قد أتم بنجاح كامل مستويات لعبة <strong>«معجزات وقصص الأنبياء»</strong>،
-              وتعرف على أنوار ومعجزات أنبياء الله ورسله عليهم السلام بذكاء وبراعة، وجمع <strong id="story-cert-hasanat">360</strong> حسنة مباركة!
+              قد أتم بنجاح كامل مراحل لعبة <strong>«معجزات وقصص الأنبياء»</strong> الثلاثين (30 قصة ومعجزة مباركة)،
+              وتعرف على أنوار وسير أنبياء الله ورسله عليهم السلام بذكاء وبراعة، وجمع <strong id="story-cert-hasanat">1800</strong> حسنة مباركة!
             </p>
             <div class="cert-badge-row">
               <div class="cert-stamp-badge" style="background:#fffbeb; border-color:#d97706;">
@@ -690,8 +765,8 @@
             <p class="cert-intro">تشهد منصة المسلم الصغير بأن البطل المتميز:</p>
             <h2 class="cert-student-name" id="conquest-cert-name" style="color:#059669;">حمزة البطل</h2>
             <p class="cert-body">
-              قد أتم بنجاح كامل حملات لعبة <strong>«خريطة الفتوحات وسفراء الإسلام»</strong>،
-              وتعرف على جغرافيا التاريخ الإسلامي ومواقف أبطال الصحابة وسفراء النبي ﷺ بذكاء وشجاعة، وجمع <strong id="conquest-cert-hasanat">400</strong> حسنة مباركة!
+              قد أتم بنجاح كامل مراحل ومحطات لعبة <strong>«خريطة الفتوحات وسفراء الإسلام» (30 مرحلة تاريخية ملحمية)</strong>،
+              وتعرف على جغرافيا التاريخ الإسلامي وبطولات الصحابة وقادة الفتوحات وسفراء النبي ﷺ بذكاء وشجاعة، وجمع <strong id="conquest-cert-hasanat">1800</strong> حسنة مباركة!
             </p>
             <div class="cert-badge-row">
               <div class="cert-stamp-badge" style="background:#ecfdf5; border-color:#059669;">
